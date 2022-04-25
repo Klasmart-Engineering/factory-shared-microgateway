@@ -25,7 +25,7 @@ ENV FC_SETTINGS=/etc/krakend/config/settings/${ENVIRONMENT}/${REGION}
 ENV FC_PARTIALS=/etc/krakend/config/partials
 ENV FC_TEMPLATES=/etc/krakend/config/templates
 
-COPY --from=builder /tmp/builder/plugins/**/*.so /opt/krakend/plugins
+COPY --from=builder /tmp/builder/plugins/**/*.so /opt/krakend/plugins/
 RUN chmod +x /opt/krakend/plugins/*.so
 
 USER krakend
