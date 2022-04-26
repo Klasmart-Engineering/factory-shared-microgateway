@@ -1,0 +1,3 @@
+[submodule "plugins/krakend-debugger"]
+	path = plugins/krakend-debugger
+	url = git@github.com:KL-Engineering/krakend-debugger.git
