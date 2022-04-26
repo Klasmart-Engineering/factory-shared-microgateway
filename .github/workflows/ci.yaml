@@ -1,0 +1,58 @@
+name: Validate KrakenD config file
+
+on:
+  push:
+
+jobs:
+  test-configuration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        regions: ["global"]
+        environment: ["landing-zone"]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build docker image
+        run: docker build -t validate -f Dockerfile.validate .
+      - name: Log envs
+        env:
+          REGION: ${{ matrix.regions }}
+          ENVIRONMENT: ${{ matrix.environment }}
+        run: echo $REGION $ENVIRONMENT
+      - name: Run validation
+        env:
+          REGION: ${{ matrix.regions }}
+          ENVIRONMENT: ${{ matrix.environment }}
+        run: docker run -e REGION=$REGION -e ENVIRONMENT=$ENVIRONMENT validate
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test-configuration
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build, tag, and push image to Amazon ECR
+        run: |
+          echo ${GITHUB_REF_NAME}
+          export BRANCH_TAG=$(echo "${GITHUB_REF_NAME}" | sed -E 's/([^0-9a-zA-Z]+)/-/g' | awk '{print tolower($0)}')
+
+          docker build -t $ECR_REPOSITORY .
+
+          docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG
+          docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG-${GITHUB_SHA::7}
+
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH_TAG-${GITHUB_SHA::7}
+        env:
+          ECR_REGISTRY: ${{ secrets.DOCKER_REPO_URL }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+
