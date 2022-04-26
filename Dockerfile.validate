@@ -16,4 +16,3 @@ COPY krakend.json/ /etc/krakend/krakend.json
 COPY validate.sh validate.sh
 
 ENTRYPOINT ["sh", "./validate.sh"]
-# ENTRYPOINT ["tail", "-f", "/dev/null"]
