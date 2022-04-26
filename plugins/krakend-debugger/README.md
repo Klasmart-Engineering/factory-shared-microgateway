@@ -1,1 +1,0 @@
-The plugin is based on this document, https://www.krakend.io/docs/extending/plugin-modifiers/

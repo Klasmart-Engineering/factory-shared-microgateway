@@ -1,4 +1,4 @@
-name: Validate KrakenD config file
+name: Validate & Build Microgateway image
 
 on:
   push:
