@@ -13,3 +13,15 @@ docker run -p 8080:8080 microgateway:latest
 ```
 
 To validate that the gateway is up and running you can go the the [http://localhost:8080/__health](http://localhost:8080/__health).
+
+## Validating a Configuration file
+
+This repository offers a [Dockerfile](Dockerfile.validate) that will automatically validate the config in this
+repository with the provided region and environment.
+
+Where `REGION` & `ENVIRONMENT` specify which files get loaded from the `config/settings` directory
+
+```sh
+docker buildx build -t validate -f Dockerfile.validate .
+docker run -e REGION="global" -e ENVIRONMENT="landing-zone" validate
+```

@@ -1,0 +1,22 @@
+{
+    "endpoint": "/github/user/{userId}",
+    "method": "GET",
+    "extra_config": {},
+    "output_encoding": "json",
+    "backend": [
+    {
+        "method": "GET",
+        "host": ["https://api.github.com"],
+        "url_pattern": "/users/{userId}"
+    },
+    {
+        "method": "GET",
+        "host": ["https://api.github.com"],
+        "url_pattern": "/users/{userId}/repos",
+        "is_collection": true,
+        "mapping": {
+        "collection": "repo_details"
+        }
+    }
+    ]
+}

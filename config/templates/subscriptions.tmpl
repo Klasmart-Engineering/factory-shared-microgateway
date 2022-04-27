@@ -1,0 +1,21 @@
+{
+  "endpoint": "/starwars/{person_number}",
+  "method": "GET",
+  "output_encoding": "json",
+  "extra_config": {
+    {{ template "jwks-validation-plugin.tmpl" .auth }},
+    "plugin/req-resp-modifier": {
+      "name": ["krakend-debugger-request", "krakend-debugger-response"]
+    }
+  },
+  "backend": [
+    {
+      "url_pattern": "api/people/{person_number}",
+      "encoding": "json",
+      "method": "GET",
+      "extra_config": {},
+      "host": ["https://swapi.dev"],
+      "disable_host_sanitize": false
+    }
+  ]
+}
