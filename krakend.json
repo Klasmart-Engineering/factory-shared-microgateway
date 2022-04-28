@@ -26,7 +26,7 @@
   "cache_ttl": "300s",
   "output_encoding": "json",
   "name": "shared-microgateway",
-  "port": 443,
+  "port": 8080,
   "endpoints": [
       {{ template "subscriptions.tmpl" . }},
       {{ template "authorization.tmpl" . }}
