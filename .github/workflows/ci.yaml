@@ -5,11 +5,13 @@ on:
 
 jobs:
   test-configuration:
+    name: Test the KrakenD configuration
     uses: KL-Engineering/central-microgateway-configuration/.github/workflows/validate-configuration.yaml@main
     secrets:
       github-token: ${{ secrets.GATEWAY_CONFIG_SYNC_BOT }}
 
   build-image:
+    name: Build and push image
     needs: test-configuration
     uses: KL-Engineering/central-microgateway-configuration/.github/workflows/build-and-push-image.yaml@main
     with:
