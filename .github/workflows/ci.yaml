@@ -4,12 +4,14 @@ on:
   push:
 
 permissions:
-      id-token: write
-      contents: read    # This is required for actions/checkout
+  id-token: write
+  contents: read # This is required for actions/checkout
 
 jobs:
   test-configuration:
     uses: KL-Engineering/central-microgateway-configuration/.github/workflows/validate-configuration.yaml@main
+    secrets:
+      token: ${{ secrets.GH_PAT }}
 
   build:
     runs-on: ubuntu-latest
@@ -18,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
           token: ${{ secrets.GH_PAT }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -45,4 +47,3 @@ jobs:
         env:
           ECR_REGISTRY: ${{ secrets.DOCKER_REPO_URL }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-
