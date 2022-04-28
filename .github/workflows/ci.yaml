@@ -9,26 +9,7 @@ permissions:
 
 jobs:
   test-configuration:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        regions: ["global"]
-        environment: ["landing-zone"]
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: Build docker image
-        run: docker build -t validate -f Dockerfile.validate .
-      - name: Log envs
-        env:
-          REGION: ${{ matrix.regions }}
-          ENVIRONMENT: ${{ matrix.environment }}
-        run: echo $REGION $ENVIRONMENT
-      - name: Run validation
-        env:
-          REGION: ${{ matrix.regions }}
-          ENVIRONMENT: ${{ matrix.environment }}
-        run: docker run -e REGION=$REGION -e ENVIRONMENT=$ENVIRONMENT validate
+    uses: KL-Engineering/central-microgateway-configuration/.github/workflows/validate-configuration.yaml@main
 
   build:
     runs-on: ubuntu-latest
