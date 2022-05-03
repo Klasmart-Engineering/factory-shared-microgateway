@@ -3,7 +3,7 @@
   "version": 3,
   "extra_config": {
     "telemetry/logging": {
-      "level": "INFO",
+      "level": "DEBUG",
       "prefix": "[KRAKEND]",
       "syslog": false,
       "stdout": true,
@@ -16,6 +16,12 @@
       "backend_disabled": false,
       "endpoint_disabled": false,
       "listen_address": ":8090"
+    },
+    "router": {
+      "logger_skip_paths": [
+        "/__health",
+        "/__stats"
+      ]
     }
   },
   "plugin": {
