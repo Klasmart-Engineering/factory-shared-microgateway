@@ -5,7 +5,7 @@ COPY plugins plugins
 WORKDIR /tmp/builder/plugins
 RUN make all
 
-FROM 246958245973.dkr.ecr.eu-west-2.amazonaws.com/shared-microgateway:kl-krakend-v0.0.2-alpine as krakend
+FROM 246958245973.dkr.ecr.eu-west-2.amazonaws.com/shared-microgateway:kl-krakend-v0.0.2 as krakend
 
 USER root
 
