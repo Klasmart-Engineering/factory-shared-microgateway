@@ -38,10 +38,11 @@
       {{ template "authorization.tmpl" . }},
       {
         "endpoint": "/lambda",
+        "output_encoding": "no-op",
         "backend": [
           {
             "url_pattern": "",
-            "encoding": "json",
+            "encoding": "no-op",
             "host": ["https://ryto4vxglcquulhtqlm4tusqse0foedp.lambda-url.eu-west-2.on.aws"]
           }
         ]
