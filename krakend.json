@@ -40,11 +40,9 @@
         "endpoint": "/lambda",
         "backend": [
           {
-            "backend/lambda": {
-              "function_name": "test-krakend-lambda-integration",
-              "region": "eu-west-2",
-              "max_retries": 1
-            }
+            "url_pattern": "",
+            "encoding": "json",
+            "host": ["https://ryto4vxglcquulhtqlm4tusqse0foedp.lambda-url.eu-west-2.on.aws"]
           }
         ]
       }
