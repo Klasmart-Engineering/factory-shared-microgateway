@@ -29,6 +29,18 @@
   "port": 8080,
   "endpoints": [
       {{ template "subscriptions.tmpl" . }},
-      {{ template "authorization.tmpl" . }}
+      {{ template "authorization.tmpl" . }},
+      {
+        "endpoint": "/lambda",
+        "backend": [
+          {
+            "backend/lambda": {
+              "function_name": "test-krakend-lambda-integration",
+              "region": "eu-west-2",
+              "max_retries": 1
+            }
+          }
+        ]
+      }
   ]
 }
