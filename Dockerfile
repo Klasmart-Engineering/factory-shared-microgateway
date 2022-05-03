@@ -1,11 +1,11 @@
-FROM 246958245973.dkr.ecr.eu-west-2.amazonaws.com/shared-microgateway:kl-krakend-builder-v0.1.1 AS builder
+FROM 246958245973.dkr.ecr.eu-west-2.amazonaws.com/shared-microgateway:kl-krakend-builder-v0.0.1 AS builder
 
 COPY plugins plugins
 
 WORKDIR /tmp/builder/plugins
 RUN make all
 
-FROM 246958245973.dkr.ecr.eu-west-2.amazonaws.com/shared-microgateway:kl-krakend-v0.1.1-alpine as krakend
+FROM 246958245973.dkr.ecr.eu-west-2.amazonaws.com/shared-microgateway:kl-krakend-v0.0.1-alpine as krakend
 
 USER root
 
