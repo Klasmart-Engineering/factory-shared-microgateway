@@ -34,25 +34,25 @@
   "name": "shared-microgateway",
   "port": 8080,
   "endpoints": [
-      {{ template "subscriptions.tmpl" . }},
-      {{ template "authorization.tmpl" . }},
-      {
-        "endpoint": "/lambda/{request_id}",
-        "method": "GET",
-        "backend": [
-          {
-            "url_pattern": "/",
-            "host": ["api.kidsloop.live"],
-            "encoding": "json",
-            "extra_config" : {
-              "backend/lambda": {
-                "function_name": "test-krakend-lambda-integration",
-                "region": "eu-west-2",
-                "max_retries": 1
-              }
+    {{ template "subscriptions.tmpl" . }},
+    {{ template "authorization.tmpl" . }},
+    {
+      "endpoint": "/lambda/{request_id}",
+      "method": "GET",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "host": ["api.kidsloop.live"],
+          "encoding": "json",
+          "extra_config" : {
+            "backend/lambda": {
+              "function_name": "test-krakend-lambda-integration",
+              "region": "eu-west-2",
+              "max_retries": 1
             }
           }
-        ]
-      }
+        }
+      ]
+    }
   ]
 }
