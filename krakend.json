@@ -38,9 +38,7 @@
       {{ template "authorization.tmpl" . }},
       {
         "endpoint": "/lambda",
-        "input_query_strings": [
-          "request_id"
-        ],
+        "method": "POST",
         "backend": [
           {
             "url_pattern": "/",
