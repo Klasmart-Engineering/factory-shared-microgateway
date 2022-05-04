@@ -38,11 +38,13 @@
       {{ template "authorization.tmpl" . }},
       {
         "endpoint": "/lambda",
+        "output_encoding": "no-op",
         "backend": [{
           "backend/lambda": {
             "function_name": "test-krakend-lambda-integration",
             "region": "eu-west-2",
-            "max_retries": 1
+            "max_retries": 1,
+            "return_error_details": "lambda_errors"
           }
         }]
       }
