@@ -38,14 +38,13 @@
       {{ template "authorization.tmpl" . }},
       {
         "endpoint": "/lambda",
-        "output_encoding": "no-op",
-        "backend": [
-          {
-            "url_pattern": "",
-            "encoding": "no-op",
-            "host": ["https://ryto4vxglcquulhtqlm4tusqse0foedp.lambda-url.eu-west-2.on.aws"]
+        "backend": [{
+          "backend/lambda": {
+            "function_name": "test-krakend-lambda-integration",
+            "region": "eu-west-2",
+            "max_retries": 1
           }
-        ]
+        }]
       }
   ]
 }
