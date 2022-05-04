@@ -37,8 +37,8 @@
       {{ template "subscriptions.tmpl" . }},
       {{ template "authorization.tmpl" . }},
       {
-        "endpoint": "/lambda",
-        "method": "POST",
+        "endpoint": "/lambda/{request_id}",
+        "method": "GET",
         "backend": [
           {
             "url_pattern": "/",
