@@ -41,14 +41,14 @@
         "backend": [
           {
             "url_pattern": "/",
+            "host": ["api.kidsloop.live"],
             "encoding": "json",
             "sd": "static",
             "extra_config" : {
               "backend/lambda": {
                 "function_name": "test-krakend-lambda-integration",
                 "region": "eu-west-2",
-                "max_retries": 1,
-                "return_error_details": "lambda_errors"
+                "max_retries": 1
               }
             }
           }
